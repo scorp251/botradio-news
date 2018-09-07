@@ -1,0 +1,6 @@
+flask
+gunicorn
+configparser
+PyMySQL
+flask-sqlalchemy
+jsonschema
