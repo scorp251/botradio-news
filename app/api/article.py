@@ -5,6 +5,7 @@ from app.model.article_tag import ArticleTag
 from app.model.database import db
 from app.validator.schemas import add_schema
 from app.validator.validator import validate_schema
+from app.utils import log
 
 bp = Blueprint("api", __name__, url_prefix="/api/v1")
 
@@ -55,7 +56,7 @@ def show_articles():
         .order_by(Article.created_at.desc(), Article.id.desc())\
         .offset(offset)\
         .limit(limit)
-    #current_app.logger.debug(articles)
+    current_app.logger.debug(articles)
 
     articles_count = Article.query.count()
     next_offset = min(limit + offset, articles_count)
@@ -102,7 +103,7 @@ Post add
 @bp.route('/articles/add', methods=['POST'])
 @validate_schema(add_schema)
 def add():
-
+    log.debug(request)
     current_app.logger.debug(request.json)
     article_id = request.json['article_id']
     tag_names  = request.json['tag_names']
@@ -116,7 +117,6 @@ def add():
     return jsonify(
         article.serialize()
     )
-
 
 '''
 Methods

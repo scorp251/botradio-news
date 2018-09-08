@@ -13,4 +13,5 @@ def setup_db(app: Flask):
     dburl = 'mysql+pymysql://{}:{}@{}:{}/{}'.format(user, password, host, port, database)
 
     app.config['SQLALCHEMY_DATABASE_URI'] = dburl
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
